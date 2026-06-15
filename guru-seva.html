@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>Guru Seva | Antar Yog Daan</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--p:#7c3aed;--pl:#9f67f0;--pxl:#f3eeff;--pxxl:#f9f5ff;--bg:#ffffff;--sf:#fafafa;--text:#1a0d33;--muted:#5e4d80;--bdr:rgba(124,58,237,0.14);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:16px}
+h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;line-height:1.2}
+img{display:block;max-width:100%}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--bdr)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:.7rem 1.25rem;display:flex;align-items:center;justify-content:space-between}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{font-size:.9rem;color:var(--muted);text-decoration:none;transition:color .18s}
+.nav-links a:hover{color:var(--p)}
+
+/* BUTTONS */
+.btn-p{display:inline-block;background:var(--p);color:#fff;font-weight:600;font-size:.9rem;padding:.7rem 1.75rem;border-radius:99px;text-decoration:none;border:none;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;text-align:center}
+.btn-p:hover{background:var(--pl);box-shadow:0 4px 18px rgba(124,58,237,.3);transform:translateY(-1px)}
+.btn-out{display:inline-block;background:transparent;color:var(--p);border:1.5px solid var(--p);font-weight:600;font-size:.9rem;padding:.7rem 1.75rem;border-radius:99px;text-decoration:none;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;text-align:center}
+.btn-out:hover{background:var(--p);color:#fff}
+
+/* CARDS */
+.card{background:#fff;border-radius:16px;border:1px solid var(--bdr);overflow:hidden;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(124,58,237,.1)}
+.card-body{padding:1.4rem}
+
+/* FORM */
+.chip{cursor:pointer;padding:.55rem .2rem;font-size:.85rem;font-weight:600;border:1.5px solid rgba(124,58,237,.2);border-radius:8px;background:#fff;color:var(--text);transition:all .18s;font-family:'Inter',sans-serif;width:100%}
+.chip:hover,.chip.on{background:var(--p);color:#fff;border-color:var(--p)}
+.freq{padding:.5rem;font-size:.82rem;font-weight:500;border-radius:8px;border:1.5px solid rgba(124,58,237,.2);background:#fff;color:var(--muted);cursor:pointer;transition:all .18s;font-family:'Inter',sans-serif;width:100%}
+.freq.on{background:var(--p);color:#fff;border-color:var(--p)}
+.finput{width:100%;border:1.5px solid rgba(124,58,237,.2);border-radius:10px;padding:.65rem .9rem;font-size:.88rem;background:#fff;color:var(--text);outline:none;transition:border-color .18s;font-family:'Inter',sans-serif}
+.finput:focus{border-color:var(--p)}
+
+/* LAYOUT C HERO BANNER */
+.hero-banner{background:var(--p);padding:5.5rem 2rem 3rem;position:relative;overflow:hidden}
+.hero-banner::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.05)}
+.hero-banner::after{content:'';position:absolute;bottom:-40px;left:20%;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,0.04)}
+
+/* PILL CATEGORY ROW */
+.pill-row{display:flex;flex-wrap:wrap;gap:.5rem;padding:1.25rem 2rem;background:#fff;border-bottom:1px solid var(--bdr);position:sticky;top:62px;z-index:100}
+.pill{display:inline-block;padding:.35rem .9rem;border-radius:99px;font-size:.8rem;font-weight:600;text-decoration:none;border:1.5px solid rgba(124,58,237,.2);color:var(--muted);background:#fff;transition:all .18s;cursor:pointer;white-space:nowrap}
+.pill:hover,.pill.active{background:var(--p);color:#fff;border-color:var(--p)}
+
+/* STORYTELLING LAYOUT: content left, sticky donate right */
+.story-wrap{max-width:1200px;margin:0 auto;padding:3.5rem 2rem;display:grid;grid-template-columns:1fr 380px;gap:4rem;align-items:start}
+.story-content{min-width:0}
+.story-sticky{position:sticky;top:140px}
+
+/* DONATE WIDGET */
+.dw{background:#fff;border:1px solid var(--bdr);border-radius:18px;padding:1.75rem;box-shadow:0 4px 32px rgba(124,58,237,.08)}
+.dw-head{text-align:center;padding-bottom:1.25rem;margin-bottom:1.25rem;border-bottom:1px solid var(--bdr)}
+
+/* SECTION BLOCKS inside storytelling */
+.s-block{margin-bottom:3.5rem}
+.s-block h2{font-size:2rem;font-weight:500;color:var(--text);margin-bottom:.4rem}
+.s-block .sub{font-size:1rem;color:var(--muted);margin-bottom:.4rem;font-family:'Cormorant Garamond',serif;font-style:italic}
+.s-rule{border:none;border-top:2px solid var(--p);opacity:.2;width:40px;margin-bottom:1.5rem}
+.s-block p{font-size:.97rem;color:var(--muted);line-height:1.85;margin-bottom:.85rem;font-weight:300}
+
+/* GRIDS inside story */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+
+/* WHY CARDS */
+.why-card{background:var(--pxxl);border:1px solid var(--bdr);border-radius:14px;padding:1.1rem}
+.why-card h3{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:.35rem}
+.why-card p{font-size:.85rem;color:var(--muted);line-height:1.65;margin:0}
+
+/* CATEGORY CARDS */
+.cat-card{background:#fff;border:1px solid var(--bdr);border-radius:14px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.cat-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(124,58,237,.1)}
+.cat-card .cat-img{width:100%;height:160px;object-fit:cover;display:block}
+.cat-card .cat-icon{height:140px;background:var(--pxl);display:flex;align-items:center;justify-content:center;font-size:3rem}
+.cat-card .cat-body{padding:1.1rem}
+.cat-card h3{font-size:.95rem;font-weight:600;color:var(--text);margin-bottom:.35rem;line-height:1.3}
+.cat-card p{font-size:.82rem;color:var(--muted);line-height:1.65;margin-bottom:.85rem}
+.cat-card a{display:block;text-align:center;font-size:.8rem;font-weight:600;color:var(--p);border:1.5px solid var(--p);padding:.5rem .75rem;border-radius:8px;text-decoration:none;transition:all .18s}
+.cat-card a:hover{background:var(--p);color:#fff}
+
+/* IMPACT STATS */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:3.5rem}
+.stat-box{background:var(--pxxl);border:1px solid var(--bdr);border-radius:14px;padding:1.25rem;text-align:center}
+.stat-box .val{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500;color:var(--p)}
+.stat-box .lbl{font-size:.8rem;color:var(--muted);margin-top:.2rem}
+
+/* OM TAT SAT */
+.ombox{display:flex;gap:1rem;align-items:flex-start;background:var(--pxxl);border:1px solid var(--bdr);border-radius:12px;padding:1.1rem;margin-bottom:.75rem}
+.ombox .om-lbl{font-family:'Noto Serif Devanagari',serif;font-size:1.2rem;color:var(--p);min-width:2.5rem;font-weight:600}
+.ombox p{font-size:.9rem;color:var(--muted);line-height:1.7;margin:.1rem 0 0}
+
+/* BLOCKQUOTE */
+.bq{border-left:3px solid var(--p);padding:1rem 1.25rem;background:var(--pxxl);border-radius:0 12px 12px 0;margin:1.25rem 0}
+.bq p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--text);line-height:1.7;margin:0}
+
+/* TABLE */
+.daan-table{width:100%;border-collapse:collapse;margin-top:1.25rem}
+.daan-table th{background:var(--p);color:#fff;padding:.7rem 1rem;text-align:left;font-size:.88rem;font-weight:600}
+.daan-table td{padding:.65rem 1rem;font-size:.9rem;color:var(--muted);border-bottom:1px solid var(--bdr)}
+.daan-table tr:last-child td{border-bottom:none}
+.daan-table tr:hover td{background:var(--pxxl)}
+
+/* TAG */
+.tag{background:var(--p);color:#fff;font-size:.72rem;font-weight:700;padding:.22rem .8rem;border-radius:99px;text-transform:uppercase;letter-spacing:.04em;display:inline-block;margin-bottom:.6rem}
+
+/* TRUST BOX */
+.trust-box{background:var(--pxxl);border:1px solid var(--bdr);border-radius:16px;padding:1.75rem;margin-top:2rem}
+
+/* SECTION ALTERNATING BG — outside story area */
+.s-wh{background:#fff;padding:5rem 2rem}
+.s-sf{background:var(--sf);padding:5rem 2rem}
+.s-p{background:var(--p);padding:5rem 2rem}
+.wrap{max-width:1200px;margin:0 auto}
+.wrap-sm{max-width:760px;margin:0 auto}
+.s-hd{text-align:center;margin-bottom:3rem}
+.s-hd h2{font-size:2.4rem;font-weight:500;color:var(--text);margin-bottom:.35rem}
+.s-hd p{font-size:1rem;color:var(--muted)}
+.s-hd hr{border:none;border-top:2px solid var(--p);opacity:.2;width:48px;margin:.9rem auto 0}
+
+/* PROG */
+.prog{height:6px;background:rgba(124,58,237,.15);border-radius:99px;overflow:hidden;margin-bottom:1.25rem}
+.prog-fill{height:100%;background:var(--p);border-radius:99px}
+
+/* SF-LIST */
+.sf-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.sf-list li{display:flex;gap:.75rem;font-size:.95rem;color:var(--muted);line-height:1.65}
+.sf-list li::before{content:'—';color:var(--p);flex-shrink:0}
+
+/* FOOTER */
+.footer{background:#12062a;color:#fff;padding:3.5rem 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;margin-bottom:2rem}
+.footer-hr{border:none;border-top:1px solid rgba(255,255,255,.07);margin-bottom:1.25rem}
+.footer a{color:rgba(255,255,255,.38);text-decoration:none;font-size:.85rem}
+.footer a:hover{color:#c4b5fd}
+.footer-head{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#c4b5fd;margin-bottom:1rem}
+
+@media(max-width:960px){
+  .story-wrap{grid-template-columns:1fr!important;padding:2rem 1.25rem}
+  .story-sticky{position:static!important;top:auto!important}
+  .stat-row,.g2,.g3,.footer-grid{grid-template-columns:1fr 1fr!important}
+  .nav-links{display:none}
+  .nav-mob{display:inline-block!important}
+  .s-hd h2{font-size:1.75rem}
+  .hero-banner{padding:5rem 1.25rem 2rem;padding-top:80px}
+  .hero-banner h1{font-size:1.75rem!important;line-height:1.25!important}
+  .hero-banner p{font-size:.88rem!important}
+  .pill-row{top:58px;padding:.65rem 1rem;gap:.35rem;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .pill{font-size:.75rem;padding:.28rem .75rem;flex-shrink:0}
+  .stat-row{gap:.6rem}
+  .stat-box{padding:.85rem .5rem}
+  .stat-box .val{font-size:1.5rem}
+  .s-block{margin-bottom:2.5rem}
+  .s-block h2{font-size:1.6rem}
+  .dw{padding:1.25rem}
+}
+@media(max-width:600px){
+  .stat-row{grid-template-columns:1fr 1fr!important;gap:.5rem}
+  .g2,.g3,.footer-grid{grid-template-columns:1fr!important}
+  .hero-banner{padding-top:75px}
+  .hero-banner h1{font-size:1.55rem!important}
+  .story-wrap{padding:1.5rem 1rem}
+  .pill-row{top:56px}
+  .about-grid{grid-template-columns:1fr!important}
+}
+</style>
+</head>
+<body><nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html"><img src="images/logo.jpg" alt="Antar Yog Foundation" style="height:42px;width:auto"></a>
+    <div class="nav-links">
+      <a href="index.html#categories">Daan Opportunities</a>
+      <a href="index.html#why">Why Give</a>
+      <a href="index.html#vedic">Vedic Way</a>
+      <a href="index.html#trust">Transparency</a>
+      <a href="#donate-form" class="btn-p" style="padding:.5rem 1.3rem">Offer Daan</a>
+    </div>
+    <a href="#donate-form" class="btn-p nav-mob" style="display:none;padding:.5rem 1.1rem;font-size:.82rem">Donate</a>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="hero-banner" style="padding-top:96px">
+  <div style="max-width:760px;margin:0 auto;text-align:center;position:relative;z-index:1">
+    <span class="tag">Guru Seva</span>
+    <h1 style="font-size:clamp(2rem,4vw,3rem);font-weight:300;color:#fff;margin:.5rem 0 .75rem;line-height:1.15">Guru Seva</h1>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:rgba(255,255,255,0.75);margin-bottom:0">Transform Yourself Through Divine Service</p>
+  </div>
+</div>
+
+<!-- PILL CATEGORY ROW -->
+<div class="pill-row">
+  <a href="anna-daan.html" class="pill">Anna Daan</a>
+  <a href="special-occasion.html" class="pill">Special Occasion</a>
+  <a href="sadhu-seva.html" class="pill">Sadhu Seva</a>
+  <a href="bal-seva.html" class="pill">Bal Seva</a>
+  <a href="orphan-seva.html" class="pill">Orphan Seva</a>
+  <a href="divyang-seva.html" class="pill">Divyang Seva</a>
+  <a href="suvasini-seva.html" class="pill">Suvasini Seva</a>
+  <a href="karuna-seva.html" class="pill">Karuna Seva</a>
+  <a href="elder-care.html" class="pill">Elder Care</a>
+  <a href="aarogya-seva.html" class="pill">Aarogya Seva</a>
+  <a href="guru-daan.html" class="pill">Guru Daan</a>
+  <a href="gau-seva.html" class="pill">Gau Seva</a>
+  <a href="vidya-daan.html" class="pill">Vidya Daan</a>
+  <a href="bhoomi-daan.html" class="pill">Bhoomi Daan</a>
+  <a href="gurukul-daan.html" class="pill">Gurukul Daan</a>
+  <a href="guru-seva.html" class="pill active">Guru Seva</a>
+</div>
+
+<!-- STORYTELLING LAYOUT -->
+<div class="story-wrap">
+
+  <!-- LEFT: Content -->
+  <div class="story-content">
+
+    <div class="s-block">
+      <img src="images/help1.jpg" alt="Guru Seva" style="width:100%;height:280px;object-fit:cover;border-radius:16px;margin-bottom:1.75rem;border:1px solid var(--bdr)">
+      <p>Guru Seva is one of the highest forms of devotion. It is the sacred act of offering your time, skills, energy or resources in service of the Guru's mission.</p><p>When you serve the Guru with faith, humility and dedication, seva becomes a path of inner purification, spiritual strength and deep transformation.</p><p>Through Guru Seva at Antar Yog Foundation, you can contribute to Acharya Upendra Ji's mission of spreading spiritual wisdom, sadhana, healing and Dharma-based transformation.</p>
+    </div>
+
+    <div class="s-block" id="why">
+      <h2>Why Guru Seva Matters</h2>
+      <p class="sub">Serve The Guru. Strengthen The Mission. Transform Yourself.</p>
+      <hr class="s-rule">
+      <div class="g2"><div class="why-card"><h3>&#9997; Skill-Based Seva</h3><p>Offer your expertise in writing, design, technology, teaching, administration, marketing, social media or video editing.</p></div><div class="why-card"><h3>&#127963; Time-Based Seva</h3><p>Visit Antar Yog Gurukul or participate in ongoing activities where your presence and commitment can support the mission.</p></div><div class="why-card"><h3>&#129492; Inner Transformation</h3><p>Seva becomes a path of inner purification, spiritual strength and deep transformation.</p></div><div class="why-card"><h3>&#128218; Spread Knowledge</h3><p>Help create, edit, translate or distribute spiritual content that carries Acharya Ji's wisdom.</p></div><div class="why-card"><h3>&#9728; Create Punya</h3><p>Every act of seva offered with sincerity becomes a powerful spiritual merit.</p></div><div class="why-card"><h3>&#127942; Collective Movement</h3><p>Guru Seva is a collective movement of seekers who contribute to something larger than themselves.</p></div></div>
+    </div>
+
+    <div class="s-block" id="impact">
+      <h2>How Your Guru Seva Creates Impact</h2>
+      <p class="sub">Your Time And Skills Can Become A Force For Transformation</p>
+      <hr class="s-rule">
+      <div class="g3"><div class="cat-card"><div class="cat-icon">&#127963;</div><div class="cat-body"><h3>Spiritual Programmes</h3><p>Helping organise shibirs, sadhana, satsang and special events.</p></div></div><div class="cat-card"><div class="cat-icon">&#128218;</div><div class="cat-body"><h3>Gurukul Activities</h3><p>Supporting daily activities, coordination and spiritual learning environments.</p></div></div><div class="cat-card"><div class="cat-icon">&#9997;</div><div class="cat-body"><h3>Content And Knowledge Work</h3><p>Helping create, edit, translate or distribute spiritual content.</p></div></div><div class="cat-card"><div class="cat-icon">&#9728;</div><div class="cat-body"><h3>Digital Outreach</h3><p>Supporting technology, social media, websites, videos and online learning.</p></div></div><div class="cat-card"><div class="cat-icon">&#128196;</div><div class="cat-body"><h3>Administration And Coordination</h3><p>Helping manage communication, planning, calling, registration and follow-up.</p></div></div><div class="cat-card"><div class="cat-icon">&#129309;</div><div class="cat-body"><h3>Seva Activities</h3><p>Supporting food distribution, seva in events, donor coordination and community service.</p></div></div></div>
+    </div>
+
+    <div class="s-block" id="ways">
+      <h2>Ways To Offer Guru Seva</h2>
+      <p class="sub">Choose The Form Of Seva That Matches Your Abilities</p>
+      <hr class="s-rule">
+      <div class="g2"><div class="why-card"><h3>&#9997; Skill-Based Seva</h3><p>Offer your expertise in writing, design, technology, teaching, administration or any other area.</p></div><div class="why-card"><h3>&#127963; Time-Based Seva</h3><p>Visit Antar Yog Gurukul or participate in ongoing activities where your presence can support the mission.</p></div><div class="why-card"><h3>&#128260; Financial Support</h3><p>Contribute towards Guru karya, spiritual programmes, events, content creation or outreach initiatives.</p></div><div class="why-card"><h3>&#127881; Special Seva Offering</h3><p>Offer seva in honour of your Guru, parents or ancestors on birthdays, anniversaries and milestones.</p></div></div>
+      
+      <div class="trust-box">
+  <h3 style="font-size:1rem;font-weight:600;color:var(--text);margin-bottom:.75rem">Trust &amp; Donation Details</h3>
+  <p style="font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:.6rem">Every contribution is treated as sacred. Donations to Antar Yog Foundation are eligible for <strong style="color:var(--text)">80G tax exemption</strong> as per applicable Indian Income Tax rules.</p>
+  <p style="font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:.6rem">Contribute via UPI, net banking, debit/credit card, NEFT/RTGS, cash or cheque.</p>
+  <p style="font-size:.9rem;color:var(--muted)"><strong style="color:var(--p)">Email:</strong> seva@antaryog.org &nbsp;&#183;&nbsp; <strong style="color:var(--p)">WhatsApp:</strong> +91 XXXXXXXXXX</p>
+</div>
+    </div>
+
+    <!-- Final CTA strip -->
+    <div style="background:var(--p);border-radius:18px;padding:2.5rem;text-align:center;color:#fff;margin-top:2rem">
+      <h2 style="font-size:1.75rem;font-weight:300;color:#fff;margin-bottom:.75rem">Offer Your Seva. Transform Yourself Through Guru Karya.</h2>
+      <p style="font-size:.95rem;opacity:.88;line-height:1.85;margin-bottom:1.5rem;font-weight:300">Blessings of Guru Seva include greater clarity, strength and inner stability; relief from obstacles through selfless action; spiritual merit and deeper devotion; and blessings for health, prosperity and spiritual progress.</p>
+      <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:.75rem">
+        <a href="#donate-form" style="background:#fff;color:var(--p);font-weight:700;padding:.85rem 2rem;border-radius:99px;text-decoration:none;font-size:.9rem;display:inline-block">Yes, I Want To Offer Guru Seva</a>
+        <a href="index.html#categories" style="background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5);padding:.85rem 2rem;border-radius:99px;text-decoration:none;font-size:.9rem;display:inline-block">All Daan Opportunities</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT: Sticky Donate Widget -->
+  <div class="story-sticky">
+    <div id="donate-form" class="dw">
+  <div class="dw-head">
+    <h2 style="font-size:1.4rem;font-weight:500;color:var(--text)">Offer Your Daan</h2>
+    <p style="font-size:.82rem;color:var(--muted);margin-top:.25rem">Choose your sankalp and contribution</p>
+  </div>
+  <div style="margin-bottom:.9rem">
+    <label style="font-size:.75rem;font-weight:600;color:var(--muted);display:block;margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.05em">Daan Category</label>
+    <select class="finput"><option selected>Guru Seva (Volunteer)</option><option>Anna Daan &#8211; Feed Lives, Offer Seva</option><option>Special Occasion Daan</option><option>Sadhu &amp; Sanyasi Seva</option><option>Brahman Seva (Ved Rakshak)</option><option>Bal Seva &#8211; Child Welfare</option><option>Orphan Seva</option><option>Divyang Seva</option><option>Suvasini Seva</option><option>Karuna Seva</option><option>Elder Care Seva</option><option>Aarogya Seva &#8211; Healthcare</option><option>Guru Daan</option><option>Gau Seva</option><option>Vidya Daan &#8211; Books</option><option>Bhoomi Daan &#8211; Ashram</option><option>Gurukul Daan</option></select>
+  </div>
+  <div style="margin-bottom:.9rem">
+    <label style="font-size:.75rem;font-weight:600;color:var(--muted);display:block;margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.05em">Amount</label>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem;margin-bottom:.4rem">
+      <button onclick="selAmt(this,700)" class="chip">&#8377;700</button>
+      <button onclick="selAmt(this,2100)" class="chip">&#8377;2,100</button>
+      <button onclick="selAmt(this,5100)" class="chip">&#8377;5,100</button>
+      <button onclick="selAmt(this,11000)" class="chip">&#8377;11,000</button>
+      <button onclick="selAmt(this,21000)" class="chip">&#8377;21,000</button>
+      <button onclick="selAmt(this,51000)" class="chip">&#8377;51,000</button>
+    </div>
+    <input id="camt" type="number" placeholder="Or enter custom amount (&#8377;)" class="finput">
+  </div>
+  <div style="margin-bottom:.9rem">
+    <label style="font-size:.75rem;font-weight:600;color:var(--muted);display:block;margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.05em">Frequency</label>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.35rem">
+      <button onclick="selFreq(this)" class="freq on">One-Time</button>
+      <button onclick="selFreq(this)" class="freq">Monthly</button>
+      <button onclick="selFreq(this)" class="freq">Annual</button>
+    </div>
+  </div>
+  <div style="margin-bottom:1rem">
+    <label style="font-size:.75rem;font-weight:600;color:var(--muted);display:block;margin-bottom:.35rem;text-transform:uppercase;letter-spacing:.05em">Dedication (Optional)</label>
+    <input type="text" placeholder="In memory of / in name of&#8230;" class="finput">
+  </div>
+  <button class="btn-p" style="width:100%;border-radius:10px;padding:.9rem;font-size:.9rem">Yes, I Want To Offer My Daan Now &#8594;</button>
+  <p style="text-align:center;font-size:.75rem;color:var(--muted);margin-top:.55rem">&#128274; Secure &nbsp;&#183;&nbsp; 80G Tax deduction available</p>
+</div>
+    <!-- Quick links -->
+    <div style="margin-top:1.25rem;background:var(--pxxl);border:1px solid var(--bdr);border-radius:14px;padding:1.25rem">
+      <p style="font-size:.8rem;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.75rem">Other Daan Opportunities</p>
+      <div style="display:flex;flex-direction:column;gap:.4rem">
+        <a href="anna-daan.html" style="font-size:.85rem;color:var(--muted);text-decoration:none;padding:.3rem 0;border-bottom:1px solid var(--bdr)">&#8594; Anna Daan</a>
+        <a href="bal-seva.html" style="font-size:.85rem;color:var(--muted);text-decoration:none;padding:.3rem 0;border-bottom:1px solid var(--bdr)">&#8594; Bal Seva</a>
+        <a href="guru-daan.html" style="font-size:.85rem;color:var(--muted);text-decoration:none;padding:.3rem 0;border-bottom:1px solid var(--bdr)">&#8594; Guru Daan</a>
+        <a href="gau-seva.html" style="font-size:.85rem;color:var(--muted);text-decoration:none;padding:.3rem 0;border-bottom:1px solid var(--bdr)">&#8594; Gau Seva</a>
+        <a href="index.html#categories" style="font-size:.85rem;color:var(--p);text-decoration:none;padding:.3rem 0;font-weight:600">View All &#8594;</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img src="images/logo.jpg" alt="Antar Yog Foundation" style="height:40px;width:auto;margin-bottom:1rem">
+        <p style="font-size:.85rem;color:rgba(255,255,255,.38);line-height:1.8;max-width:260px">Your daan is a sacred decision to convert your wealth into blessings, impact and a legacy that lives beyond you.</p>
+      </div>
+      <div>
+        <div class="footer-head">Daan Categories</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem">
+          <li><a href="anna-daan.html">Anna Daan</a></li>
+          <li><a href="bal-seva.html">Bal Seva</a></li>
+          <li><a href="guru-daan.html">Guru Daan</a></li>
+          <li><a href="gau-seva.html">Gau Seva</a></li>
+          <li><a href="bhoomi-daan.html">Bhoomi Daan</a></li>
+          <li><a href="gurukul-daan.html">Gurukul Daan</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-head">Connect</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:.5rem">
+          <li><a href="index.html#trust">Trust &amp; Transparency</a></li>
+          <li><a href="mailto:seva@antaryog.org">Contact Seva Team</a></li>
+          <li style="font-size:.85rem;color:rgba(255,255,255,.2)">80G Tax Benefits</li>
+          <li style="font-size:.85rem;color:rgba(255,255,255,.2)">Donation Receipt</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-hr">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem">
+      <p style="font-size:.8rem;color:rgba(255,255,255,.2)">&#169; 2024 Antar Yog Foundation. All rights reserved.</p>
+      <p style="font-size:.8rem;color:rgba(255,255,255,.2)">Serving thousands of lives with unconditional love and oneness</p>
+    </div>
+  </div>
+</footer><script>
+var chips=document.querySelectorAll('.chip');
+function selAmt(el,amt){chips.forEach(function(c){c.classList.remove('on')});el.classList.add('on');var i=document.getElementById('camt');i.value='';i.placeholder='Rs '+amt.toLocaleString('en-IN')+' selected'}
+var freqs=document.querySelectorAll('.freq');
+function selFreq(el){freqs.forEach(function(f){f.classList.remove('on')});el.classList.add('on')}
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}})});
+</script></body></html>
